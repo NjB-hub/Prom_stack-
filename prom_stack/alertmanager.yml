@@ -1,0 +1,14 @@
+route:
+  group_by: ["Alertname"]
+  receiver: email-me
+
+receivers:
+  - name: email-me
+    email_configs:
+      - to: cqurecy@gmail.com
+        from: njbertha6@gmail.com
+        smarthost: smtp.gmail.com:587
+        auth_username: njbertha6@gmail.com
+        auth_identity: njbertha6@gmail.com
+        auth_password: skhmmpqqaqabatgu
+        send_resolved: true
