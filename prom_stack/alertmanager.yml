@@ -5,10 +5,10 @@ route:
 receivers:
   - name: email-me
     email_configs:
-      - to: cqurecy@gmail.com
-        from: njbertha6@gmail.com
+      - to: xxxxxxx@gmail.com
+        from: xxxxxxx@gmail.com
         smarthost: smtp.gmail.com:587
-        auth_username: njbertha6@gmail.com
-        auth_identity: njbertha6@gmail.com
-        auth_password: skhmmpqqaqabatgu
+        auth_username: xxxxxxx@gmail.com
+        auth_identity: xxxxxxx@gmail.com
+        auth_password: xxxxxxxxxxxxxxxx
         send_resolved: true
