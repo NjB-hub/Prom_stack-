@@ -8,7 +8,7 @@ sudo cp alertmanager-0.24.0.linux-amd64/alertmanager /usr/local/bin
 sudo cp alertmanager-0.24.0.linux-amd64/amtool /usr/local/bin/
 sudo mkdir /var/lib/alertmanager
 
-rm -rf alertmanager*
+rm -rf alertmanager-0.24.0.linux-amd64.tar.gz alertmanager-0.24.0.linux-amd64
 
 sudo cp alertmanager.yml /etc/prometheus/
 sudo cp alertmanager.service /etc/systemd/system/alertmanager.service
