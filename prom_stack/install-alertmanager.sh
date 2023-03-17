@@ -10,6 +10,9 @@ sudo mkdir /var/lib/alertmanager
 
 rm -rf alertmanager*
 
+sudo cp alertmanager.yml /etc/prometheus/
+sudo cp alertmanager.service /etc/systemd/system/alertmanager.service
+
 sudo systemctl daemon-reload
 sudo systemctl enable alertmanager
 sudo systemctl start alertmanager

@@ -17,8 +17,8 @@ scrape_configs:
   - job_name: "node"
     ec2_sd_configs:
       - region: us-east-2
-        access_key: AKIASM2CARSLI5UMW3A3
-        secret_key: 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
+        access_key: XXXXXXXXXXXXXXX
+        secret_key: XXXXXXXXXXXXXXXXXXxXXXXXXXX
         port: 9100
     relabel_configs:
       - source_labels: [__meta_ec2_public_ip]
@@ -29,3 +29,25 @@ scrape_configs:
         # Use the instance ID as the instance label
       - source_labels: [__meta_ec2_tag_Name]
         target_label: instance
+
+  - job_name: "rds"
+    scrape_interval: 60s
+    scrape_timeout: 55s
+    metrics_path: /basic
+    honor_labels: true
+    static_configs:
+      - targets:
+          - prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_Role]
+        target_label: instance
+        replacement: "${1}:9042"
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: "prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042"
+
+  - job_name: "yace-rds"
+    scrape_interval: 1m
+    static_configs:
+      - targets: ["prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:5000"]
+    metrics_path: "/metrics"
