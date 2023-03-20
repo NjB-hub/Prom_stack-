@@ -7,7 +7,7 @@ After=network-online.target
 User=rds-exporter
 Group=rds-exporter
 Type=simple
-ExecStart=/usr/local/bin/rds-exporter \
+ExecStart=/usr/local/bin/rds_exporter \
   --config.file=/etc/rds-exporter/rds_exporter_config.yml
 
 [Install]
