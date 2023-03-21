@@ -1,7 +1,7 @@
 #Nginx Installation
 #!/bin/bash
 
-sudo apt install nginx
+sudo apt install nginx -y
 
 sudo cp grafana.my-coolpay.com.conf /etc/nginx/sites-enabled/
 
