@@ -31,23 +31,22 @@ scrape_configs:
         target_label: instance
 
   - job_name: "rds"
-    scrape_interval: 60s
-    scrape_timeout: 55s
-    metrics_path: /basic
+    scrape_interval: 100s
+    scrape_timeout: 80s
+    metrics_path: "/basic"
+    params:
+      format: ["prometheus"]
     honor_labels: true
     static_configs:
       - targets:
-          - prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042
+          - "prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042"
+    basic_auth:
+      username: "admin"
+      password: "myappdb0"
     relabel_configs:
-      - source_labels: [__meta_ec2_tag_Role]
-        target_label: instance
-        replacement: "${1}:9042"
       - source_labels: [__address__]
+        target_label: __param_instance
+      - source_labels: [__param_instance]
         target_label: instance
-        replacement: "prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042"
-
-  - job_name: "yace-rds"
-    scrape_interval: 1m
-    static_configs:
-      - targets: ["prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:5000"]
-    metrics_path: "/metrics"
+      - target_label: __address__
+        replacement: "localhost:9042"

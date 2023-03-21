@@ -18,7 +18,10 @@ sudo cp prometheus-2.41.0.linux-amd64/promtool /usr/local/bin/
 rm -rf prometheus-2.41.0.linux-amd64.tar.gz prometheus-2.41.0.linux-amd64
 
 sudo cp prometheus.yml /etc/prometheus/
+sudo cp web-config.yml /etc/prometheus/
 sudo cp prometheus.service /etc/systemd/system/prometheus.service
+
+promtool check web-config /etc/prometheus/web-config.yml
 
 sudo chown prometheus:prometheus /etc/prometheus
 sudo chown prometheus:prometheus /usr/local/bin/prometheus
