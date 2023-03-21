@@ -5,5 +5,5 @@ sudo service nginx status
 
 sudo cp grafana.my-coolpay.com.conf /etc/nginx/sites-enabled/
 
-sudo service nginx restart
-sudo service nginx status
+sudo systemctl enable nginx
+sudo systemctl start nginx
