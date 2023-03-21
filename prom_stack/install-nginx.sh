@@ -1,4 +1,5 @@
 #Nginx Installation
+#!/bin/bash
 
 sudo apt install nginx
 
