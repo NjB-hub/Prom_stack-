@@ -2,7 +2,7 @@ global:
   scrape_interval: 1m
   evaluation_interval: 10s
   external_labels:
-    monitor: "prom_stack"
+    monitor: "prom3rds"
 
 rule_files:
   - /etc/prometheus/rules.yml
@@ -40,9 +40,6 @@ scrape_configs:
     static_configs:
       - targets:
           - "prom2rds.cldchisvcpw5.us-east-2.rds.amazonaws.com:9042"
-    basic_auth:
-      username: "admin"
-      password: "myappdb0"
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_instance
