@@ -3,9 +3,7 @@ groups:
     rules:
       - alert: InstanceDown
         expr: up == 0
-        for:
-          2m
-          # Labels - additional labels to be attached to the alert
+        for: 2m
         labels:
           severity:
             "critical"
