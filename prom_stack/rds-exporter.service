@@ -8,8 +8,7 @@ User=rds-exporter
 Group=rds-exporter
 Type=simple
 ExecStart=/usr/local/bin/rds-exporter \
-  --config.file=/etc/rds-exporter/rds_exporter_config.yml \
-  --storage.path=/var/lib/rds-exporter
+  --config.file=/etc/rds-exporter/rds_exporter_config.yml 
 
 [Install]
 WantedBy=multi-user.target

@@ -4,6 +4,5 @@ instances:
     instance: myrds
     aws_access_key: XXXXXXXXXXXXXXXXX
     aws_secret_key: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-    aws_role_arn: arn:aws:iam::164957818006:role/rds-role
     disable_basic_metrics: true
     disable_enhanced_metrics: false

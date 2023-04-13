@@ -42,6 +42,18 @@ rm -rf node_exporter-1.5.0.linux-amd64.tar.gz node_exporter-1.5.0.linux-amd64
 
 sudo cp node-exporter.service /etc/systemd/system/node-exporter.service
 
+#RDS_exporter 0.7.2 installation
+
+sudo useradd --no-create-home rds-exporter
+sudo mkdir /etc/rds-exporter
+
+wget https://github.com/percona/rds_exporter/releases/download/v0.7.2/rds_exporter-0.7.2.linux-amd64.tar.gz
+tar xzf rds_exporter-0.7.2.linux-amd64.tar.gz
+sudo cp rds_exporter-0.7.2.linux-amd64/rds_exporter /usr/local/bin/rds-exporter
+rm -rf rds_exporter-0.7.2.linux-amd64.tar.gz rds_exporter-0.7.2.linux-amd64
+
+sudo cp rds_exporter_config.yml /etc/rds-exporter/
+sudo cp rds-exporter.service /etc/systemd/system/rds-exporter.service
 
 #Grafana 9.3.6 Installation
 
@@ -69,5 +81,5 @@ sudo chown -R prometheus:prometheus /etc/prometheus
 
 # Démarrer les services
 sudo systemctl daemon-reload
-sudo systemctl enable prometheus grafana-server alertmanager node-exporter
-sudo systemctl start prometheus grafana-server alertmanager node-exporter
+sudo systemctl enable prometheus grafana-server alertmanager node-exporter rds-exporter
+sudo systemctl start prometheus grafana-server alertmanager node-exporter rds-exporter

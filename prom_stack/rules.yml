@@ -9,3 +9,36 @@ groups:
         annotations:
           summary: "Instance {{ $labels.instance }} is down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
+
+ - alert: HostOutOfMemory
+        # Condition for alerting: Alerter quand la quantité de RAM utilisée dépasse ...%
+    expr: 100 - ((node_memory_MemAvailable_bytes * 100) / node_memory_MemTotal_bytes) > 40
+    for: 2m
+        # Labels - additional labels to be attached to the alert
+    labels:
+      severity: "warning"
+        # Annotation - additional informational labels to store more information
+    annotations:
+      summary: "Host out of memory (instance {{ $labels.instance }})"
+      description: 'Node memory is filling up (> 40% used)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}'
+
+ - alert: HostHighCpuLoad
+    expr: (100 - (irate(node_cpu_seconds_total{mode="idle"}[5m]) * 100))
+    for: 2m
+    labels:
+      severity: "warning"
+    annotations:
+      summary: "Host high CPU load (instance {{ $labels.instance }})"
+      description: 'CPU load is > 0.2%\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}'
+
+ - alert: HostOutOfDiskSpace
+         #L alerte se déclenche quand lespace utiliséee est supérieur à .... %
+    expr: 100 - ((node_filesystem_avail_bytes{mountpoint="/"}* 100) / node_filesystem_size_bytes{mountpoint="/"}) > 37
+    for: 2m
+    labels:
+       severity: "warning"
+    annotations:
+      summary: "Host out of disk space (instance {{ $labels.instance }})"
+      description: 'Disk is almost full (> 37% used)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}'
+
+
