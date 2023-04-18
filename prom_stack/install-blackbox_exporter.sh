@@ -9,7 +9,7 @@ sudo useradd --no-create-home --shell /bin/false blackbox_exporter
 rm -rf blackbox_exporter-0.23.0.linux-amd64.tar.gz blackbox_exporter-0.23.0.linux-amd64
 
 sudo mkdir /etc/blackbox_exporter
-sudo cp blackbox_exporter-0.23.0.linux-amd64/blackbox.yml  /etc/blackbox_exporter/
+sudo cp blackbox.yml  /etc/blackbox_exporter/
 sudo cp blackbox_exporter.service /etc/systemd/system/blackbox_exporter.service
 
 
