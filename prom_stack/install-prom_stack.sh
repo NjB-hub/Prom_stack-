@@ -42,6 +42,23 @@ rm -rf node_exporter-1.5.0.linux-amd64.tar.gz node_exporter-1.5.0.linux-amd64
 
 sudo cp node-exporter.service /etc/systemd/system/node-exporter.service
 
+#Black box exporter 0.23.0 Installation
+
+sudo useradd --no-create-home --shell /bin/false blackbox_exporter
+wget https://github.com/prometheus/blackbox_exporter/releases/download/v0.23.0/blackbox_exporter-0.23.0.linux-amd64.tar.gz
+tar xvfz blackbox_exporter-0.23.0.linux-amd64.tar.gz
+sudo mv blackbox_exporter-0.23.0.linux-amd64/blackbox_exporter /usr/local/bin
+
+rm -rf blackbox_exporter-0.23.0.linux-amd64.tar.gz blackbox_exporter-0.23.0.linux-amd64
+
+sudo mkdir /etc/blackbox_exporter
+sudo cp blackbox.yml  /etc/blackbox_exporter/
+sudo cp blackbox_exporter.service /etc/systemd/system/blackbox_exporter.service
+
+sudo chown blackbox_exporter:blackbox_exporter /usr/local/bin/blackbox_exporter
+sudo chown -R blackbox_exporter:blackbox_exporter /etc/blackbox_exporter/
+
+
 #RDS_exporter 0.7.2 installation
 
 sudo useradd --no-create-home rds-exporter
@@ -81,5 +98,5 @@ sudo chown -R prometheus:prometheus /etc/prometheus
 
 # Démarrer les services
 sudo systemctl daemon-reload
-sudo systemctl enable prometheus grafana-server alertmanager node-exporter rds-exporter
-sudo systemctl start prometheus grafana-server alertmanager node-exporter rds-exporter
+sudo systemctl enable prometheus grafana-server alertmanager node-exporter rds-exporter blackbox_exporter
+sudo systemctl start prometheus grafana-server alertmanager node-exporter rds-exporter blackbox_exporter
