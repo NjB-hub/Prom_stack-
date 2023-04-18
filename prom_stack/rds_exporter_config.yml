@@ -4,5 +4,5 @@ instances:
     instance: myrds
     aws_access_key: XXXXXXXXXXXXXXXXX
     aws_secret_key: XXXXXXXXXXXXXXXXXXXXXXXXXXX
-    disable_basic_metrics: true
+    disable_basic_metrics: false
     disable_enhanced_metrics: false
