@@ -10,6 +10,7 @@ rm -rf blackbox_exporter-0.23.0.linux-amd64.tar.gz blackbox_exporter-0.23.0.linu
 
 sudo mkdir /etc/blackbox_exporter
 sudo cp blackbox_exporter-0.23.0.linux-amd64/blackbox.yml  /etc/blackbox_exporter/
+sudo cp blackbox_exporter.service /etc/systemd/system/blackbox_exporter.service
 
 
 sudo chown blackbox_exporter:blackbox_exporter /usr/local/bin/blackbox_exporter
@@ -19,3 +20,4 @@ sudo systemctl daemon-reload
 sudo systemctl enable blackbox_exporter
 sudo systemctl start blackbox_exporter
 sudo systemctl status blackbox_exporter
+
