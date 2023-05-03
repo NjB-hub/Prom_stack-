@@ -30,7 +30,7 @@ groups:
           severity: "warning"
         annotations:
           summary: "Host high CPU load (instance {{ $labels.instance }})"
-          description: 'CPU load is > 50%\n  VALUE = {{ $value }}'
+          description: "CPU load is > 50% || VALUE = {{ $value }}"
 
       - alert:
           HostOutOfDiskSpace
@@ -41,10 +41,10 @@ groups:
           severity: "warning"
         annotations:
           summary: "Host out of disk space (instance {{ $labels.instance }})"
-          description: 'Disk is almost full (> 37% used)\n  VALUE = {{ $value }}\n  LABELS: {{ $labels }}'
+          description: 'Disk is almost full (> 37% used) || VALUE = {{ $value }}\n  LABELS: {{ $labels }}'
 
       - alert:
-          RDS CPU Utilization
+          RDSCPUUtilization
           #L alerte se déclenche quand le CPU utilisé est supérieur à .... %
         expr: node_cpu_average > 50
         for: 2m
@@ -52,18 +52,18 @@ groups:
           severity: "warning"
         annotations:
           summary: "Host high CPU load (instance {{ $labels.instance }})"
-          description: '{{ $labels.instance }} RDS CPU is almost full (> 50% used)\n  VALUE = {{ $value }}'
+          description: "{{ $labels.instance }} RDS CPU is almost full (> 50% used) || VALUE = {{ $value }}"
 
       - alert:
-          RDS Disk Utilization /20GB
+          RDSDiskUtilization /20GB
           #L alerte se déclenche quand lespace utilisé est supérieur à .... %
-        expr: 20000000000 - node_filesystem_free_bytes{job="rds"} > 15*1e+9
+        expr: 20000000000 - node_filesystem_free_bytes{job="rds-basic"} > 15*1e+9
         for: 2m
         labels:
           severity: "warning"
         annotations:
-          summary: "Host out of disk space (instance {{ $labels.instance }})"
-          description: '{{ $labels.instance }} RDS Disk is almost full (> 75% used)\n  VALUE = {{ $value }}/20GB'
+          summary: "RDS Host out of disk space (instance {{ $labels.instance }})"
+          description: "{{ $labels.instance }} RDS Disk is almost full (> 75% used) || VALUE = {{ $value | humanize }}/20GB"
 
       - alert:
           Endpoint Down
@@ -95,3 +95,14 @@ groups:
         annotations:
           summary: "SSL certificate will expire soon."
           description: "The SSL certificate of the instance {{ $labels.instance }} will expire in {{ $value | humanizeDuration }}"
+
+      - alert:
+          RDSFreeRAM /4GB
+          #L alerte se déclenche quand lespace RAM restant est inférieur à 60 MB
+        expr: node_memory_MemFree_bytes{job="rds-enhanced"} < 200*1e+6
+        for: 2m
+        labels:
+          severity: "warning"
+        annotations:
+          summary: "RDS Host out of RAM space (instance {{ $labels.instance }})"
+          description: "{{ $labels.instance }} RDS Disk is almost full (> 90% used) || VALUE = {{ $value | humanize }} remaining /4GB"
